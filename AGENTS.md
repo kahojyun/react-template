@@ -18,9 +18,12 @@ This is a modern React 19 project with the following setup:
 ### Key Commands
 
 - `pnpm dev` - Start development server
-- `pnpm build` - Type-check and build for production
+- `pnpm build` - Build for production and generate route tree
 - `pnpm lint` - Run ESLint
-- `pnpm format` - Format code with Prettier
+- `pnpm format --check` - Check formatting with Prettier
+- `pnpm fix` - Fix linting and formatting issues
+- `pnpm preview` - Preview production build
+- `pnpm type-check` - Run TypeScript type checking
 
 ### Path Aliases
 
