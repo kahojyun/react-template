@@ -41,3 +41,35 @@ When working with TanStack Router's file-based routing, be aware of:
 6. **Catch-all routes** - Use `$.tsx` for catch-all routes, but be careful with route priority
 7. **Type generation** - The `routeTree.gen.ts` file is auto-generated; never edit it manually
 8. **Colocation limitations** - Non-route files in the routes directory may interfere with route generation; use `.` prefix to exclude them (e.g., `.components/`)
+
+## Agent Instructions for Autonomous Work
+
+### Workflow Guidelines
+
+1. **Always verify before modifying** - Run `pnpm type-check` and `pnpm lint` before and after making changes to ensure no regressions
+2. **Auto-fix issues** - Use `pnpm fix` to automatically resolve linting and formatting issues after code changes
+3. **Test builds** - Run `pnpm build` to verify production builds work correctly after significant changes
+
+### Code Generation Standards
+
+1. **Use TypeScript strictly** - All new files must be `.ts` or `.tsx` with proper type annotations
+2. **Follow existing patterns** - Match the code style and patterns already established in the codebase
+3. **Use path aliases** - Always use `@/` imports instead of relative paths for `src/` files
+4. **Component structure** - Place reusable components in `src/components/`, UI primitives in `src/components/ui/`
+5. **Utilities** - Shared utilities go in `src/lib/`, hooks in `src/hooks/`
+6. **Prefer shadcn components** - When a component is missing, first check if shadcn/ui has an existing component before creating custom ones. Use `pnpm shadcn add <component-name>` to add available components.
+
+### Autonomous Task Execution
+
+1. **Read before writing** - Always examine existing code structure before creating new files
+2. **Incremental changes** - Make small, focused changes rather than large rewrites
+3. **Validate changes** - After modifications, run the appropriate check commands
+4. **Handle errors** - If a command fails, analyze the error output and fix issues before proceeding
+5. **Document decisions** - Add comments for non-obvious code decisions
+
+### Common Tasks
+
+- **Adding a new route**: Create file in `src/routes/` following naming conventions, then restart dev server if needed
+- **Adding a component**: First check shadcn/ui availability, then create in appropriate directory, export from index if pattern exists
+- **Adding a shadcn component**: Use `pnpm shadcn add <component-name>` - always prefer this over custom implementations
+- **Modifying styles**: Use Tailwind classes, check `src/index.css` for CSS variables
