@@ -24,6 +24,7 @@ This is a modern React 19 project with the following setup:
 - `pnpm fix` - Fix linting and formatting issues
 - `pnpm preview` - Preview production build
 - `pnpm type-check` - Run TypeScript type checking
+- `pnpm test --run` - Run unit tests once (avoid watch mode in agent runs)
 
 ### Path Aliases
 
@@ -41,6 +42,15 @@ When working with TanStack Router's file-based routing, be aware of:
 6. **Catch-all routes** - Use `$.tsx` for catch-all routes, but be careful with route priority
 7. **Type generation** - The `routeTree.gen.ts` file is auto-generated; never edit it manually
 8. **Colocation limitations** - Non-route files in the routes directory may interfere with route generation; use `.` prefix to exclude them (e.g., `.components/`)
+9. **No tests in routes** - Do not place test files under `src/routes/`
+
+### Testing Setup
+
+- **Framework**: Vitest + React Testing Library + jsdom
+- **Config**: `vitest.config.ts` (merged with Vite config)
+- **TypeScript**: `tsconfig.test.json` for test types and globals
+- **Test locations**: Prefer colocated tests next to source files; route-related tests go in `src/test/` (never under `src/routes/`)
+- **Agent runs**: Always use `pnpm test --run` to avoid hanging watch mode
 
 ## Agent Instructions for Autonomous Work
 
@@ -49,6 +59,7 @@ When working with TanStack Router's file-based routing, be aware of:
 1. **Always verify before modifying** - Run `pnpm type-check` and `pnpm lint` before and after making changes to ensure no regressions
 2. **Auto-fix issues** - Use `pnpm fix` to automatically resolve linting and formatting issues after code changes
 3. **Test builds** - Run `pnpm build` to verify production builds work correctly after significant changes
+4. **Run tests once** - Use `pnpm test --run` (never watch) during agent execution
 
 ### Code Generation Standards
 
