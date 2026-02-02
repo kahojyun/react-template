@@ -12,12 +12,12 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen bg-background">
-        <nav className="border-b bg-card">
+      <div className="bg-background min-h-screen">
+        <nav className="bg-card border-b">
           <div className="mx-auto flex max-w-7xl items-center gap-6 px-4 py-3">
             <Link
               to="/"
-              className="text-lg font-semibold text-foreground hover:text-primary"
+              className="text-foreground hover:text-primary text-lg font-semibold"
             >
               Home
             </Link>

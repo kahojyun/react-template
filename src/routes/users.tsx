@@ -59,7 +59,7 @@ async function fetchUsers(): Promise<User[]> {
   if (!response.ok) {
     throw new Error("Failed to fetch users");
   }
-  return response.json();
+  return response.json() as Promise<User[]>;
 }
 
 export const Route = createFileRoute("/users")({
@@ -118,7 +118,7 @@ function UsersComponent() {
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="cursor-pointer px-4 py-3 text-left text-sm font-medium text-muted-foreground hover:text-foreground"
+                    className="text-muted-foreground hover:text-foreground cursor-pointer px-4 py-3 text-left text-sm font-medium"
                     onClick={header.column.getToggleSortingHandler()}
                   >
                     <div className="flex items-center gap-2">
@@ -151,7 +151,7 @@ function UsersComponent() {
       </div>
 
       <div className="flex items-center justify-between">
-        <div className="text-sm text-muted-foreground">
+        <div className="text-muted-foreground text-sm">
           Page {table.getState().pagination.pageIndex + 1} of{" "}
           {table.getPageCount()}
         </div>
