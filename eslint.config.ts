@@ -31,5 +31,14 @@ export default defineConfig([
       "react-refresh/only-export-components": "off",
     },
   },
+  {
+    files: ["**/*.test.ts", "**/*.test.tsx", "src/test/**/*"],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.vitest,
+      },
+    },
+  },
   prettier,
 ]);
