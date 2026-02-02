@@ -8,6 +8,9 @@ This is a modern React 19 project with the following setup:
 - **Language**: TypeScript 5.9
 - **Styling**: Tailwind CSS 4 with CSS variables
 - **UI Components**: shadcn/ui (base-mira style) with Base UI and Lucide icons
+- **Routing**: TanStack Router
+- **Data Fetching**: TanStack Query (React Query)
+- **Tables**: TanStack Table
 - **Linting**: ESLint 9 with React hooks, React DOM, and Prettier integration
 - **Formatting**: Prettier with Tailwind CSS plugin
 - **React Compiler**: Babel plugin for React Compiler enabled
