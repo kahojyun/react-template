@@ -18,6 +18,15 @@ importers:
       '@eslint/js':
         specifier: ^9.39.1
         version: 9.39.2
+      '@tsconfig/node-lts':
+        specifier: ^24.0.0
+        version: 24.0.0
+      '@tsconfig/node-ts':
+        specifier: ^23.6.2
+        version: 23.6.2
+      '@tsconfig/vite-react':
+        specifier: ^7.0.2
+        version: 7.0.2
       '@types/node':
         specifier: ^24.10.1
         version: 24.10.9
@@ -506,6 +515,15 @@ packages:
     resolution: {integrity: sha512-mxRFDdHIWRxg3UfIIAwCm6NzvxG0jDX/wBN6KsQFTvKFqqg9vTrWUE68qEjHt19A5wwx5X5aUi2zuZT7YR0jrA==}
     cpu: [x64]
     os: [win32]
+
+  '@tsconfig/node-lts@24.0.0':
+    resolution: {integrity: sha512-8mSTqWwCd6aQpvxSrpQlMoA9RiUZSs7bYhL5qsLXIIaN9HQaINeoydrRu/Y7/fws4bvfuyhs0BRnW9/NI8tySg==}
+
+  '@tsconfig/node-ts@23.6.2':
+    resolution: {integrity: sha512-WcU3KR3tHB8XMotRBpUEGfPLT3W0gAhrHcTxU7mNQ4N1+fwF3LbjpWP07TuhZtN5ehK3bcK/R4Zzqp7Pqd7Nqg==}
+
+  '@tsconfig/vite-react@7.0.2':
+    resolution: {integrity: sha512-lEj4y5SPRcH+bjw0tyuxrEnPqQUwfQzBKgd1YamD9xyet9zLwh2gwy5F8w/Nxg5DjdgYVjjKo5aLJUf0BTDz4w==}
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -1453,6 +1471,12 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.57.1':
     optional: true
+
+  '@tsconfig/node-lts@24.0.0': {}
+
+  '@tsconfig/node-ts@23.6.2': {}
+
+  '@tsconfig/vite-react@7.0.2': {}
 
   '@types/babel__core@7.20.5':
     dependencies:
