@@ -1,13 +1,13 @@
 ---
 title: Defer Non-Critical Third-Party Libraries
 impact: MEDIUM
-impactDescription: loads after hydration
+impactDescription: loads after initial render
 tags: bundle, third-party, analytics, defer
 ---
 
 ## Defer Non-Critical Third-Party Libraries
 
-Analytics, logging, and error tracking don't block user interaction. Load them after hydration.
+Analytics, logging, and error tracking don't block user interaction. Load them after initial render.
 
 **Incorrect (blocks initial bundle):**
 
@@ -26,24 +26,29 @@ export default function RootLayout({ children }) {
 }
 ```
 
-**Correct (loads after hydration):**
+**Correct (loads after initial render):**
 
 ```tsx
-import dynamic from 'next/dynamic'
+import { useEffect, useState } from 'react'
 
-const Analytics = dynamic(
-  () => import('@vercel/analytics/react').then(m => m.Analytics),
-  { ssr: false }
-)
+let cachedAnalytics: React.ComponentType | null = null
 
 export default function RootLayout({ children }) {
+  const [Analytics, setAnalytics] = useState<React.ComponentType | null>(cachedAnalytics)
+
+  useEffect(() => {
+    if (cachedAnalytics) return
+    void import('@vercel/analytics/react').then(m => {
+      cachedAnalytics = m.Analytics
+      setAnalytics(() => m.Analytics)
+    })
+  }, [])
+
   return (
-    <html>
-      <body>
-        {children}
-        <Analytics />
-      </body>
-    </html>
+    <>
+      {children}
+      {Analytics ? <Analytics /> : null}
+    </>
   )
 }
 ```

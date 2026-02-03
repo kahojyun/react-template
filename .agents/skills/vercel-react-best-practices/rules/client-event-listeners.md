@@ -2,12 +2,12 @@
 title: Deduplicate Global Event Listeners
 impact: LOW
 impactDescription: single listener for N components
-tags: client, swr, event-listeners, subscription
+tags: client, event-listeners, subscription
 ---
 
 ## Deduplicate Global Event Listeners
 
-Use `useSWRSubscription()` to share global event listeners across component instances.
+Use a module-level singleton to share global event listeners across component instances.
 
 **Incorrect (N instances = N listeners):**
 
@@ -30,10 +30,10 @@ When using the `useKeyboardShortcut` hook multiple times, each instance will reg
 **Correct (N instances = 1 listener):**
 
 ```tsx
-import useSWRSubscription from 'swr/subscription'
-
 // Module-level Map to track callbacks per key
 const keyCallbacks = new Map<string, Set<() => void>>()
+let listenerCount = 0
+let handler: ((e: KeyboardEvent) => void) | null = null
 
 function useKeyboardShortcut(key: string, callback: () => void) {
   // Register this callback in the Map
@@ -54,15 +54,26 @@ function useKeyboardShortcut(key: string, callback: () => void) {
     }
   }, [key, callback])
 
-  useSWRSubscription('global-keydown', () => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.metaKey && keyCallbacks.has(e.key)) {
-        keyCallbacks.get(e.key)!.forEach(cb => cb())
+  useEffect(() => {
+    if (!handler) {
+      handler = (e: KeyboardEvent) => {
+        if (e.metaKey && keyCallbacks.has(e.key)) {
+          keyCallbacks.get(e.key)!.forEach(cb => cb())
+        }
       }
     }
-    window.addEventListener('keydown', handler)
-    return () => window.removeEventListener('keydown', handler)
-  })
+    if (listenerCount === 0) {
+      window.addEventListener('keydown', handler)
+    }
+    listenerCount += 1
+
+    return () => {
+      listenerCount -= 1
+      if (listenerCount === 0 && handler) {
+        window.removeEventListener('keydown', handler)
+      }
+    }
+  }, [])
 }
 
 function Profile() {

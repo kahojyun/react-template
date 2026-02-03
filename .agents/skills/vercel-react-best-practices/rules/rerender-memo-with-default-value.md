@@ -13,6 +13,8 @@ When memoized component has a default value for some non-primitive optional para
 
 To address this issue, extract the default value into a constant.
 
+Note: React Compiler is enabled in this project. Prefer removing manual memoization entirely unless there is clear, measured benefit.
+
 **Incorrect (`onClick` has different values on every rerender):**
 
 ```tsx

@@ -10,6 +10,8 @@ tags: rerender, useMemo, optimization
 When an expression is simple (few logical or arithmetical operators) and has a primitive result type (boolean, number, string), do not wrap it in `useMemo`.
 Calling `useMemo` and comparing hook dependencies may consume more resources than the expression itself.
 
+Note: React Compiler is enabled in this project. Prefer no manual memoization unless there is clear, measured benefit.
+
 **Incorrect:**
 
 ```tsx

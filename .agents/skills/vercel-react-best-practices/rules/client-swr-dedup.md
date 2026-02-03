@@ -1,13 +1,13 @@
 ---
-title: Use SWR for Automatic Deduplication
+title: Use TanStack Query for Automatic Deduplication
 impact: MEDIUM-HIGH
 impactDescription: automatic deduplication
-tags: client, swr, deduplication, data-fetching
+tags: client, tanstack-query, deduplication, data-fetching
 ---
 
-## Use SWR for Automatic Deduplication
+## Use TanStack Query for Automatic Deduplication
 
-SWR enables request deduplication, caching, and revalidation across component instances.
+TanStack Query enables request deduplication, caching, and revalidation across component instances.
 
 **Incorrect (no deduplication, each instance fetches):**
 
@@ -25,32 +25,39 @@ function UserList() {
 **Correct (multiple instances share one request):**
 
 ```tsx
-import useSWR from 'swr'
+import { useQuery } from '@tanstack/react-query'
 
 function UserList() {
-  const { data: users } = useSWR('/api/users', fetcher)
+  const { data: users } = useQuery({
+    queryKey: ['users'],
+    queryFn: fetchUsers
+  })
 }
 ```
 
-**For immutable data:**
+**For immutable-ish data (set a long staleTime):**
 
 ```tsx
-import { useImmutableSWR } from '@/lib/swr'
+import { useQuery } from '@tanstack/react-query'
 
 function StaticContent() {
-  const { data } = useImmutableSWR('/api/config', fetcher)
+  const { data } = useQuery({
+    queryKey: ['config'],
+    queryFn: fetchConfig,
+    staleTime: 1000 * 60 * 60
+  })
 }
 ```
 
 **For mutations:**
 
 ```tsx
-import { useSWRMutation } from 'swr/mutation'
+import { useMutation } from '@tanstack/react-query'
 
 function UpdateButton() {
-  const { trigger } = useSWRMutation('/api/user', updateUser)
-  return <button onClick={() => trigger()}>Update</button>
+  const mutation = useMutation({ mutationFn: updateUser })
+  return <button onClick={() => mutation.mutate()}>Update</button>
 }
 ```
 
-Reference: [https://swr.vercel.app](https://swr.vercel.app)
+Reference: [https://tanstack.com/query/latest](https://tanstack.com/query/latest)
