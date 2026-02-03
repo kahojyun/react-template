@@ -42,14 +42,14 @@ When working with TanStack Router's file-based routing, be aware of:
 6. **Catch-all routes** - Use `$.tsx` for catch-all routes, but be careful with route priority
 7. **Type generation** - The `routeTree.gen.ts` file is auto-generated; never edit it manually
 8. **Colocation limitations** - Non-route files in the routes directory may interfere with route generation; use `.` prefix to exclude them (e.g., `.components/`)
-9. **No tests in routes** - Do not place test files under `src/routes/`
+9. **Tests in routes need `-` prefix** - Test files under `src/routes/` are allowed only when the filename or folder is prefixed with `-` so the generator skips them
 
 ### Testing Setup
 
 - **Framework**: Vitest + React Testing Library + jsdom
 - **Config**: `vitest.config.ts` (merged with Vite config)
 - **TypeScript**: `tsconfig.test.json` for test types and globals
-- **Test locations**: Prefer colocated tests next to source files; route-related tests go in `src/test/` (never under `src/routes/`)
+- **Test locations**: Prefer colocated tests next to source files; route-related tests can live under `src/routes/` with a leading `-` prefix to avoid route generation
 - **Agent runs**: Always use `pnpm test --run` to avoid hanging watch mode
 
 ## Agent Instructions for Autonomous Work
